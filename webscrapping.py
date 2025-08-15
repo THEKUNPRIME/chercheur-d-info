@@ -14,4 +14,10 @@ def info_looking(url):
         contacts = [*list(set(emails)), *phone_numbers]
         return contacts
 
+def url_exists(url):
+    try:
+        response = requests.head(url, timeout=5)
+        return response.status_code == 200
+    except requests.RequestException:
+        return False
 
