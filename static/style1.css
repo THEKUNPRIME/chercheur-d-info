@@ -49,3 +49,10 @@ body{
     padding-right: 10%;
 }
 }
+.flexible{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between
+}

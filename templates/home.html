@@ -16,9 +16,27 @@
         <form action="/" method="post">
             <div class="input-group mb-3">
               <input type="text" name="nm" class="form-control" placeholder="Recipient’s username" aria-label="Recipient’s username" aria-describedby="button-addon2">
-              <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
+              <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Cherchez</button>
             </div>
         </form>
+        <div class="flexible">
+            <form class="yo" action="/" method="post">
+                <button type="submit">scholap.com</button>
+                <input type="hidden" name="nm" value="https://schoolap.com/contact">
+            </form>
+            <form action="/" method="post">
+                <button type="submit">ascitech.cd</button>
+                <input type="hidden" name="nm" value="https://ascitech.cd/#">
+            </form>
+            <form action="/" method="post">
+                <button type="submit">ecole.cd</button>
+                <input type="hidden" name="nm" value="https://ecole.cd/">
+            </form>
+            <form action="/" method="post">
+                <button type="submit">minas.gouv.cd</button>
+                <input type="hidden" name="nm" value="https://minas.gouv.cd/">
+            </form>
+        </div>
         <ul class="list-group list-group-flush">
             {% for contact in contacts%}
                 <li class="list-group-item">{{contact}}</li>
