@@ -1,10 +1,8 @@
-#from click import MissingParameter
 from flask import Flask, redirect, url_for, render_template, request
 #import requests
 from requests.exceptions import MissingSchema
-
-#from utils import is_valid_email
 import webscrapping as web
+import pdfsearching as pdf
 
 app = Flask(__name__)
 
@@ -12,21 +10,30 @@ app = Flask(__name__)
 def home():
     try:
         if request.method == "POST":
-            user = request.form["nm"]
-            if web.url_exists(user):
-                contacts = (web.info_looking(user))
+            user = request.form.get("nm")
+            f = request.files.get("file")
+            if user and user.strip() != "":
+                if pdf.is_valid_pdf(user):
+                    contacts = pdf.info_looking_pdf(user)
+                    return render_template("home.html", contacts=contacts)
+
+                elif web.url_exists(user):
+                    contacts = web.info_looking_url(user)
+                    return render_template("home.html", contacts=contacts)
+
+                else:
+                    return render_template("home.html", contacts=["URL ou chemin PDF invalide"])
+            elif f:
+                contacts = pdf.info_looking_pdf(f)
                 return render_template("home.html", contacts=contacts)
-            else:
-                contacts = ["url inéxistante(ca a une forme mais ca n'existe pas)"]
-                return render_template("home.html", contacts=contacts)
-        else:
-            return render_template("home.html")
-    except  MissingSchema:
-        contacts = ["ca n'a pas la forme d'un url"]
-        return render_template("home.html", contacts=contacts)
+        return render_template("home.html")
+
+    except MissingSchema:
+        return render_template("home.html", contacts=["⚠️ URL invalide (mauvaise forme)"])
+    except FileNotFoundError:
+        return render_template("home.html", contacts=["⚠️ Fichier PDF introuvable"])
     except TypeError:
-        contacts = ["url inéxistante(ca a une forme mais ca n'existe pas)"]
-        return render_template("home.html", contacts=contacts)
+        return render_template("home.html", contacts=["⚠️ URL inexistante (bonne forme mais n’existe pas)"])
 
 #p-UaLWrc2_zD/=c
 

@@ -37,6 +37,10 @@
                 <input type="hidden" name="nm" value="https://minas.gouv.cd/">
             </form>
         </div>
+        <form action="/" method="post" enctype="multipart/form-data" class="mb-3">
+            <input type="file" name="file" accept="application/pdf" class="form-control mb-2">
+            <button type="submit" class="btn btn-success">Uploader PDF</button>
+        </form>
         <ul class="list-group list-group-flush">
             {% for contact in contacts%}
                 <li class="list-group-item">{{contact}}</li>
