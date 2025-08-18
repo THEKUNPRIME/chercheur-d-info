@@ -4,12 +4,12 @@ import  re
 #import pandas as pd
 import utils
 
-def info_looking(url):
+def info_looking_url(url):
     response = requests.get(url)
     if response.ok:
         soup = BeautifulSoup(response.text, "html.parser")
-        emails = re.findall(utils.pattern(), str(soup))
-        phone_numbers = re.findall(utils.pattern2(), str(soup))
+        emails = re.findall(utils.pattern_email(), soup.get_text())
+        phone_numbers = re.findall(utils.pattern_phone_number(), soup.get_text())
         phone_numbers = list(map(lambda x: x.replace(' ',''), phone_numbers))
         contacts = [*list(set(emails)), *phone_numbers]
         return contacts
